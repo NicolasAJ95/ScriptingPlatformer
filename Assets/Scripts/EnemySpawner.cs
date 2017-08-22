@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour {
 
     [SerializeField]
-    private int life = 4;
+    private float life = 100;
     [SerializeField]
     private float spawnTime = 1.5f;
     [SerializeField]
@@ -40,11 +40,9 @@ public class EnemySpawner : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    void OnCollisionEnter(Collision col)
+    public void Damage(float damage)
     {
-        if (col.gameObject.CompareTag("Bullet"))
-        {
-            life -= 1;
-        }
+        life -= damage;
     }
+
 }

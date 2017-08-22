@@ -13,7 +13,7 @@ public class PlayerShoot : MonoBehaviour {
 
     public int chargerSize = 8;
     public float reloadTime;
-    public bool canShoot;
+    public bool canShoot = true;
     public GameObject bulletPrefab;
 
     // Use this for initialization
@@ -24,7 +24,7 @@ public class PlayerShoot : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input .GetMouseButtonDown(0))
+        if(Input .GetMouseButtonDown(0) && canShoot)
         {
             Shoot();
         }
