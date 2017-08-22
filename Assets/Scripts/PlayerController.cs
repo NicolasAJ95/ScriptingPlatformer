@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private bool facingRight;
 
+    private float prevRot;
+
     // Use this for initialization
     void Start () {
         my_RigidBody = GetComponent<Rigidbody>();
@@ -33,12 +35,9 @@ public class PlayerController : MonoBehaviour {
             Die();
 
         var horizontal = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-        if (horizontal >= 0)
-            facingRight = true;
-        else
-            facingRight = false;
 
-        Flip();
+
+        Flip(horizontal);
     }
 
     void FixedUpdate()
@@ -60,10 +59,25 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    private void Flip()
+    private void Flip(float horizontal)
     {
         Vector3 localTransform = transform.localScale;
         Quaternion localRotation = transform.rotation;
+
+        if(horizontal > 0)
+        {
+            facingRight = true;
+            prevRot = 180;
+        }
+        if (horizontal < 0)
+        {
+            facingRight = false;
+            prevRot = 0;
+        }
+        if (horizontal == 0)
+        {
+            localRotation = Quaternion.Euler(0, prevRot, 0);
+        }
 
         if (facingRight == true)
         {
@@ -74,8 +88,8 @@ public class PlayerController : MonoBehaviour {
             localRotation = Quaternion.Euler(0, 180, 0);
         }
 
+
         transform.rotation = localRotation;
-        transform.localScale = localTransform;
     }
 
     private void MovePlayer(float horizontal, float vertical)

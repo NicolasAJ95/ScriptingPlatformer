@@ -45,7 +45,6 @@ public class CameraFollow : MonoBehaviour {
     //// Update is called once per frame
     void Update()
     {
-
         FollowPlayer();
     }
 
@@ -54,14 +53,16 @@ public class CameraFollow : MonoBehaviour {
         float posX = transform.position.x;
         float posY = transform.position.y;
 
-        if (player.localScale.x == -2)
+        if (player.rotation == Quaternion .Euler (0,180,0))
         {
+            Debug.Log("looking left");
             posX = Mathf.Lerp(transform.position.x, player.position.x - horizontalOffset, smoothTimeX * Time.deltaTime);
             posY = Mathf.Lerp(transform.position.y, player.position.y + verticalOffset, smoothTimeY * Time.deltaTime);
         }
 
-        if (player.localScale.x == 2)
+        if (player.rotation == Quaternion.Euler(0, 0, 0))
         {
+            Debug.Log("looking right");
             posX = Mathf.Lerp(transform.position.x, player.position.x + horizontalOffset, smoothTimeX * Time.deltaTime);
             posY = Mathf.Lerp(transform.position.y, player.position.y + verticalOffset, smoothTimeY * Time.deltaTime);
 

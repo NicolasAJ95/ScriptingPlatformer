@@ -94,7 +94,9 @@
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\FlyingEnemy.cs" />
     <Compile Include="Assets\Scripts\FlyingEnemySensor.cs" />
+    <Compile Include="Assets\Scripts\Lava.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
+    <Compile Include="Assets\Scripts\MovingPlatformHorizontal.cs" />
     <Compile Include="Assets\Scripts\MovingPlatformVertical.cs" />
     <Compile Include="Assets\Scripts\Mutant.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />

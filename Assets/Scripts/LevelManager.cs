@@ -21,10 +21,12 @@ public class LevelManager : MonoBehaviour {
     public void LoadNextLevel()
     {
         SceneManager.LoadScene(_activeSceneBuildIndex + 1);
+        Time.timeScale = 1;
     }
 
     public void LoadLevel(string level){
         SceneManager.LoadScene(level);
+        Time.timeScale = 1;
     }
 	
 	// Update is called once per frame
