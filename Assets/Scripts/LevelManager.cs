@@ -5,12 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
 
+    private int _activeSceneBuildIndex = 0;
 
+    void Start()
+    {
+        Initialize();
+    }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private void Initialize()
+    {
+        Scene activeScene = SceneManager.GetActiveScene();
+        _activeSceneBuildIndex = activeScene.buildIndex;
+    }
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(_activeSceneBuildIndex + 1);
+    }
 
     public void LoadLevel(string level){
         SceneManager.LoadScene(level);

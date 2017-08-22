@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour {
     private bool canJump;
     [SerializeField]
     private bool isMoving;
+    [SerializeField]
+    private bool facingRight;
 
     // Use this for initialization
     void Start () {
@@ -30,6 +32,13 @@ public class PlayerController : MonoBehaviour {
         if (health <= 0)
             Die();
 
+        var horizontal = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        if (horizontal >= 0)
+            facingRight = true;
+        else
+            facingRight = false;
+
+        Flip();
     }
 
     void FixedUpdate()
@@ -41,6 +50,7 @@ public class PlayerController : MonoBehaviour {
         else
             isMoving = false;
 
+
         MovePlayer(horizontal, vertical);
 
         if(Input .GetKeyDown (KeyCode .Space) && canJump == true)
@@ -50,10 +60,31 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    private void Flip()
+    {
+        Vector3 localTransform = transform.localScale;
+        Quaternion localRotation = transform.rotation;
+
+        if (facingRight == true)
+        {
+            localRotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            localRotation = Quaternion.Euler(0, 180, 0);
+        }
+
+        transform.rotation = localRotation;
+        transform.localScale = localTransform;
+    }
+
     private void MovePlayer(float horizontal, float vertical)
     {
         Vector3 forces = Vector3.zero;
-        forces += transform.right * horizontal;
+        if(facingRight == true)
+            forces += transform.right * horizontal;
+        if (facingRight == false)
+            forces += -transform.right * horizontal;
         forces.y = 0.0f;
 
         my_RigidBody.position += new Vector3(forces.x, forces.y, 0);

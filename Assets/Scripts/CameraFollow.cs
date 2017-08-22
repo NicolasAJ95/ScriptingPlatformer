@@ -33,6 +33,7 @@ public class CameraFollow : MonoBehaviour {
 
     void Start()
     {
+        player = FindObjectOfType <PlayerController >().transform ;
         transform.position = new Vector3(player.position.x, player.position.y, transform.position.z);
 
         topLimit = topLimit.GetComponent<Transform>();
@@ -42,7 +43,7 @@ public class CameraFollow : MonoBehaviour {
     }
 
     //// Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
 
         FollowPlayer();
@@ -53,7 +54,7 @@ public class CameraFollow : MonoBehaviour {
         float posX = transform.position.x;
         float posY = transform.position.y;
 
-        if (player.localScale.x == 2)
+        if (player.localScale.x == -2)
         {
             posX = Mathf.Lerp(transform.position.x, player.position.x - horizontalOffset, smoothTimeX * Time.deltaTime);
             posY = Mathf.Lerp(transform.position.y, player.position.y + verticalOffset, smoothTimeY * Time.deltaTime);
