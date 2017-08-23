@@ -30,7 +30,7 @@ public class EnemySpawner : MonoBehaviour {
     {
         if (playerIsNear == true)
         {
-            GameObject enemy = Instantiate ( enemyPrefab, transform .position, transform.rotation) as GameObject ;
+            GameObject enemy = Instantiate ( enemyPrefab, transform .position, Quaternion.Euler (0, -90,0)) as GameObject ;
             Rigidbody  enemyRigidBody = enemy.GetComponent<Rigidbody>();
         }
     }

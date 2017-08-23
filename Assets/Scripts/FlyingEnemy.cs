@@ -23,9 +23,12 @@ public class FlyingEnemy : MonoBehaviour {
     private Transform actualPosition;
     private Vector3 initialPosition;
 
+    private LineRenderer lineRenderer;
 
     void Awake()
     {
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
         initialPosition = this.transform.position;
     }
     // Use this for initialization
@@ -53,12 +56,20 @@ public class FlyingEnemy : MonoBehaviour {
 
     public void Attack()
     {
+        lineRenderer.enabled = true;
         var bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
         var bulletRigidBody = bullet.GetComponent<Rigidbody>();
 
         bullet.transform.position = this.transform.position;
 
         bulletRigidBody.AddForce(Vector3.down * bulletSpeed, ForceMode.Impulse);
+        StartCoroutine("Wait");
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1.2f);
+        lineRenderer.enabled = false;
     }
 
     public void Patrol()
@@ -74,7 +85,7 @@ public class FlyingEnemy : MonoBehaviour {
         else
         {
         
-            forces += Vector3.left * moveSpeed * Time.deltaTime;
+            forces += -Vector3.right * moveSpeed * Time.deltaTime;
         }
 
         enemy_Rigidbody.position += new Vector3(forces.x, 0, 0);
